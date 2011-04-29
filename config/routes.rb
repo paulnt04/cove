@@ -1,4 +1,8 @@
 Cove::Application.routes.draw do
+  resources :code_terms
+
+  resources :languages
+
   devise_for :users
 
   root :to => "home#index"
