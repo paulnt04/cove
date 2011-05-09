@@ -9,7 +9,7 @@
 
 (function($) {
 	function TimeLine(placeholder, data_, options_) {
-		
+		// data_ should be formatted as {"series_1_name": [{"start_time": "hh:mm:ss", "end_time": "hh:mm:ss"}]}
 		var ctx;
 		var c_width;
 		var c_height;
