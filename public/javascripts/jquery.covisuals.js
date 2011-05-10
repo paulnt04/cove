@@ -118,42 +118,42 @@
 					if (time.length == 3) {
 						duration = parseInt(time[0],10)*3600 + parseInt(time[1],10)*60 + parseInt(time[2],10);
 					} else if (time.length == 2) {
-						duration = parseInt(time[0])*60 + parseInt(time[1])
+						duration = parseInt(time[0],10)*60 + parseInt(time[1],10);
 					} else if (time.length == 1) {
-							seconds = time[0]
+							seconds = time[0];
 					} else {
 						console.error("Covisuals.js: Invalid Time Format for Video Duration.");
 						throw "1";
 					}
 					start = Math.ceil(start_time/scale_data_) + 100;
 					length = Math.ceil(duration/scale_data_);
-					line(start,length,i,line_options_)
+					line(start,length,i,line_options_);
 				});
 				i++;
 			});
-		};
+		}
 		
 		function frequency_display(freq_data, freq_options,scale_data_) {
 			
-		};
+		}
 		
 		// Scaler
 		function scaler(video_data_) {
-			data_width = parseInt(c_width) - 100;
-			time = video_data_["duration"].split(":")
+			data_width = parseInt(c_width,10) - 100;
+			time = video_data_.duration.split(":");
 			if (time.length == 3) {
-				seconds = parseInt(time[0])*3600 + parseInt(time[1])*60 + parseInt(time[2])
+				seconds = parseInt(time[0],10)*3600 + parseInt(time[1],10)*60 + parseInt(time[2],10);
 			} else if (time.length == 2) {
-				seconds = parseInt(time[0])*60 + parseInt(time[1])
+				seconds = parseInt(time[0],10)*60 + parseInt(time[1],10);
 			} else if (time.length == 1) {
-				seconds = time[0]
+				seconds = time[0];
 			} else {
 				console.error("Covisuals.js: Invalid Time Format for Video Duration.");
 				throw "1";
 			}
 			spp = seconds/data_width; // seconds per pixel
 			return spp;
-		};
+		}
 		
 		// Line Subfunction. line_options_ is a JSON object
 		function line(start_x,length,series_number,line_options_) {
@@ -165,7 +165,7 @@
 			ctx.lineTo(start_x + length, y);
 			ctx.stroke();
 			ctx.closePath();
-		};
+		}
 		
 		function vector(start_x,start_y,end_x,end_y,line_options_) {
 			ctx.lineWidth = 1;
@@ -175,7 +175,7 @@
 			ctx.lineTo(end_x, end_y);
 			ctx.stroke();
 			ctx.closePath();
-		};
+		}
 		
 		function point(x,y,series_number,point_options_) {
 			var radius = 2;
@@ -184,7 +184,7 @@
 			ctx.arc(x,y,radius,0,Math.PI*2,true); // arc(x,y,radius,startAngle,endAngle,clockwise)
 			ctx.closePath();
 			ctx.fill();
-		};
+		}
 		
 		function label(labeltext, series_number, label_options_) {
 			ctx.textBaseline = 'top';
@@ -195,14 +195,20 @@
 			
 			y = series_number*15 - 6; 
 			ctx.fillText(labeltext,4, y,maxWidth);
-		};
+		}
 		
 		// Option Parsing function. Escapes most javascript functions
 		function parseOptions(opts,global_flag) {
 			$.each(opts, function(i,val) {
 				var escaped_var = i.replace(/[^A-Za-z0-9\.]/g,'');
-				try {var escaped_val = val.replace(/[^A-Za-z0-9\.]/g,'');} catch(er) {escaped_val = val}
-				try {$.parseJSON(val); isJSON = true;} catch(er) { isJSON = false }
+        var escaped_val;
+				try {escaped_val = val.replace(/[^A-Za-z0-9\.]/g,'');} catch(er) {escaped_val = val;}
+				try {
+          $.parseJSON(val); 
+          isJSON = true;
+        } catch(error){
+          isJSON = false; 
+        }
 				if (eval('ctx.' + escaped_var)) {
 					eval('var ctx.' + escaped_var + ' = \'' + val + '\'')
 				} else if (isJSON) {
