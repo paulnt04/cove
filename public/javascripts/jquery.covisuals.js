@@ -89,12 +89,12 @@
 				
 				this.replaceWith("<canvas id=\"covisual_" + (document.getElementsByTagName('canvas').length + 1).toString() + "\"><!-- --></canvas>");
 				json_options_ = JSON.stringify(options);
-				json_data_ = JSON.stringify(data);
+				var json_data_ = JSON.stringify(data);
 				id = '#covisual_' + (document.getElementsByTagName('canvas').length).toString();
 				$(id).timeline(type,json_data_,json_options_);
 		} else {
 				console.error("CoVisual TimeLines require HTML5 Canvas Support. Target must be a div or canvas.");
-		};
+		}
 		
 		function line_display(line_data_,line_options_,scale_data_) {
 			var i=1;
@@ -218,44 +218,46 @@
 						point_options = $.parseJSON(val) || val;
 					} else if (i == "line") {
 						line_options = $.parseJSON(val) || val;
-					} else if (i == "css" && global_flag == true) {
+					} else if (i === "css" && global_flag === true) {
 						css = $.parseJSON(val) || val;
 						$.each(css, function(j,cval) {
-							if (target.css(j) || target.css(j) == "") {
+							if (target.css(j) || target.css(j) === "") {
 								target.css(j,cval);
-							};
+							}
 						});
-					} else if (typeof(eval(escaped_var)) != "undefined") {
+					} else if (typeof(eval(escaped_var)) !== "undefined") {
 						try {
 							eval('var ' + escaped_var + ' = ' + escaped_val);
 						} catch(er) {
 							eval('var ' + escaped_var + ' = \'' + escaped_val + '\'');
 						}
 					};
-				} else if (target.css(i) && global_flag == true) {
+				} else if (target.css(i) && global_flag === true) {
 					target.css(i,val)
-				} else if (typeof(window[escaped_var] != "undefined")) {
+				} else if (typeof(window[escaped_var] !== "undefined")) {
 					eval('var ' + escaped_var + ' = \'' + val + '\'');
-				};
+				}
 			});
-		};
+		}
 		
 		// Fill Generator from FLOT (see https://github.com/flot/flot)
 		// Needs manipulation for adding new colors to existing colors and for more than 3 colors
 		function fillGenerator(number) {
 			var colors = [], variation = 0;
 			i = 0;
-			needColors = number - color_list.length
+			needColors = number - color_list.length;
 			while (colors.length < neededColors) {
 			    var c;
-			    if (color_list.length == i) // check degenerate case
+			    if (color_list.length == i){ // check degenerate case
 			        c = $.color.make(100, 100, 100);
-			    else
+          }
+			    else{
 			        c = $.color.parse(color_list[i]);
+          }
             
 			    // vary color if needed
 			    var sign = variation % 2 == 1 ? -1 : 1;
-			    c.scale('rgb', 1 + sign * Math.ceil(variation / 2) * 0.2)
+			    c.scale('rgb', 1 + sign * Math.ceil(variation / 2) * 0.2);
             
 			    // FIXME: if we're getting to close to something else,
 			    // we should probably skip this one
@@ -268,9 +270,9 @@
 			    }
 			}
 			$.each(colors, function(obj) {
-				color_list.push(colors[obj].toString())
+				color_list.push(colors[obj].toString());
 			});
-		};
+		}
 		
 	};
 })(jQuery);
