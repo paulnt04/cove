@@ -1,0 +1,5 @@
+/* CoVisual Specific CSS */
+
+*[id*='covisual'] {
+	background-color: #FFFFF6;
+}
