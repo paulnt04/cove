@@ -4,7 +4,7 @@
 // Timeline Framework
 
 // Color helper from FLOT (github.com/flot/flot), originally inspired by jQuery color animation plugin by John Resig
-(function(B){B.color={};B.color.make=function(F,E,C,D){var G={};G.r=F||0;G.g=E||0;G.b=C||0;G.a=D!=null?D:1;G.add=function(J,I){for(var H=0;H<J.length;++H){G[J.charAt(H)]+=I}return G.normalize()};G.scale=function(J,I){for(var H=0;H<J.length;++H){G[J.charAt(H)]*=I}return G.normalize()};G.toString=function(){if(G.a>=1){return"rgb("+[G.r,G.g,G.b].join(",")+")"}else{return"rgba("+[G.r,G.g,G.b,G.a].join(",")+")"}};G.normalize=function(){function H(J,K,I){return K<J?J:(K>I?I:K)}G.r=H(0,parseInt(G.r),255);G.g=H(0,parseInt(G.g),255);G.b=H(0,parseInt(G.b),255);G.a=H(0,G.a,1);return G};G.clone=function(){return B.color.make(G.r,G.b,G.g,G.a)};return G.normalize()};B.color.extract=function(D,C){var E;do{E=D.css(C).toLowerCase();if(E!=""&&E!="transparent"){break}D=D.parent()}while(!B.nodeName(D.get(0),"body"));if(E=="rgba(0, 0, 0, 0)"){E="transparent"}return B.color.parse(E)};B.color.parse=function(F){var E,C=B.color.make;if(E=/rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)/.exec(F)){return C(parseInt(E[1],10),parseInt(E[2],10),parseInt(E[3],10))}if(E=/rgba\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]+(?:\.[0-9]+)?)\s*\)/.exec(F)){return C(parseInt(E[1],10),parseInt(E[2],10),parseInt(E[3],10),parseFloat(E[4]))}if(E=/rgb\(\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*\)/.exec(F)){return C(parseFloat(E[1])*2.55,parseFloat(E[2])*2.55,parseFloat(E[3])*2.55)}if(E=/rgba\(\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\s*\)/.exec(F)){return C(parseFloat(E[1])*2.55,parseFloat(E[2])*2.55,parseFloat(E[3])*2.55,parseFloat(E[4]))}if(E=/#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})/.exec(F)){return C(parseInt(E[1],16),parseInt(E[2],16),parseInt(E[3],16))}if(E=/#([a-fA-F0-9])([a-fA-F0-9])([a-fA-F0-9])/.exec(F)){return C(parseInt(E[1]+E[1],16),parseInt(E[2]+E[2],16),parseInt(E[3]+E[3],16))}var D=B.trim(F).toLowerCase();if(D=="transparent"){return C(255,255,255,0)}else{E=A[D]||[0,0,0];return C(E[0],E[1],E[2])}};var A={aqua:[0,255,255],azure:[240,255,255],beige:[245,245,220],black:[0,0,0],blue:[0,0,255],brown:[165,42,42],cyan:[0,255,255],darkblue:[0,0,139],darkcyan:[0,139,139],darkgrey:[169,169,169],darkgreen:[0,100,0],darkkhaki:[189,183,107],darkmagenta:[139,0,139],darkolivegreen:[85,107,47],darkorange:[255,140,0],darkorchid:[153,50,204],darkred:[139,0,0],darksalmon:[233,150,122],darkviolet:[148,0,211],fuchsia:[255,0,255],gold:[255,215,0],green:[0,128,0],indigo:[75,0,130],khaki:[240,230,140],lightblue:[173,216,230],lightcyan:[224,255,255],lightgreen:[144,238,144],lightgrey:[211,211,211],lightpink:[255,182,193],lightyellow:[255,255,224],lime:[0,255,0],magenta:[255,0,255],maroon:[128,0,0],navy:[0,0,128],olive:[128,128,0],orange:[255,165,0],pink:[255,192,203],purple:[128,0,128],violet:[128,0,128],red:[255,0,0],silver:[192,192,192],white:[255,255,255],yellow:[255,255,0]}})(jQuery);
+//(function(B){B.color={};B.color.make=function(F,E,C,D){var G={};G.r=F||0;G.g=E||0;G.b=C||0;G.a=D!=null?D:1;G.add=function(J,I){for(var H=0;H<J.length;++H){G[J.charAt(H)]+=I}return G.normalize()};G.scale=function(J,I){for(var H=0;H<J.length;++H){G[J.charAt(H)]*=I}return G.normalize()};G.toString=function(){if(G.a>=1){return"rgb("+[G.r,G.g,G.b].join(",")+")"}else{return"rgba("+[G.r,G.g,G.b,G.a].join(",")+")"}};G.normalize=function(){function H(J,K,I){return K<J?J:(K>I?I:K)}G.r=H(0,parseInt(G.r),255);G.g=H(0,parseInt(G.g),255);G.b=H(0,parseInt(G.b),255);G.a=H(0,G.a,1);return G};G.clone=function(){return B.color.make(G.r,G.b,G.g,G.a)};return G.normalize()};B.color.extract=function(D,C){var E;do{E=D.css(C).toLowerCase();if(E!=""&&E!="transparent"){break}D=D.parent()}while(!B.nodeName(D.get(0),"body"));if(E=="rgba(0, 0, 0, 0)"){E="transparent"}return B.color.parse(E)};B.color.parse=function(F){var E,C=B.color.make;if(E=/rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)/.exec(F)){return C(parseInt(E[1],10),parseInt(E[2],10),parseInt(E[3],10))}if(E=/rgba\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]+(?:\.[0-9]+)?)\s*\)/.exec(F)){return C(parseInt(E[1],10),parseInt(E[2],10),parseInt(E[3],10),parseFloat(E[4]))}if(E=/rgb\(\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*\)/.exec(F)){return C(parseFloat(E[1])*2.55,parseFloat(E[2])*2.55,parseFloat(E[3])*2.55)}if(E=/rgba\(\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\s*\)/.exec(F)){return C(parseFloat(E[1])*2.55,parseFloat(E[2])*2.55,parseFloat(E[3])*2.55,parseFloat(E[4]))}if(E=/#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})/.exec(F)){return C(parseInt(E[1],16),parseInt(E[2],16),parseInt(E[3],16))}if(E=/#([a-fA-F0-9])([a-fA-F0-9])([a-fA-F0-9])/.exec(F)){return C(parseInt(E[1]+E[1],16),parseInt(E[2]+E[2],16),parseInt(E[3]+E[3],16))}var D=B.trim(F).toLowerCase();if(D=="transparent"){return C(255,255,255,0)}else{E=A[D]||[0,0,0];return C(E[0],E[1],E[2])}};var A={aqua:[0,255,255],azure:[240,255,255],beige:[245,245,220],black:[0,0,0],blue:[0,0,255],brown:[165,42,42],cyan:[0,255,255],darkblue:[0,0,139],darkcyan:[0,139,139],darkgrey:[169,169,169],darkgreen:[0,100,0],darkkhaki:[189,183,107],darkmagenta:[139,0,139],darkolivegreen:[85,107,47],darkorange:[255,140,0],darkorchid:[153,50,204],darkred:[139,0,0],darksalmon:[233,150,122],darkviolet:[148,0,211],fuchsia:[255,0,255],gold:[255,215,0],green:[0,128,0],indigo:[75,0,130],khaki:[240,230,140],lightblue:[173,216,230],lightcyan:[224,255,255],lightgreen:[144,238,144],lightgrey:[211,211,211],lightpink:[255,182,193],lightyellow:[255,255,224],lime:[0,255,0],magenta:[255,0,255],maroon:[128,0,0],navy:[0,0,128],olive:[128,128,0],orange:[255,165,0],pink:[255,192,203],purple:[128,0,128],violet:[128,0,128],red:[255,0,0],silver:[192,192,192],white:[255,255,255],yellow:[255,255,0]}})(jQuery);
 
 
 (function($) {
@@ -21,15 +21,17 @@
 		var point_options = {};
 		var line_options = {};
 		var autoscale = false;
+    var options;
+    var data;
 		try {
-			var options = JSON.parse(options_);
-		} catch(er) {
-			options = options_
+			options = JSON.parse(options_);
+		} catch(err) {
+			options = options_;
 		}
 		try {
-			var data = JSON.parse(data_);
-		} catch(er) {
-			data = data_
+			data = JSON.parse(data_);
+		} catch(error) {
+			data = data_;
 		}
 		
 		//console.warn("Type:" + type + ",Data:" + data_ + ",Options:" + options_) // DEBUGGING INPUT
@@ -41,54 +43,54 @@
 			// fillGenerator(Object.keys(data["data"]).length); // Uncomment to activate colored lines
 			// Height and width of target if set. Else, 500px X 100px is default. Can also be set in options.
 			if (this.css('width')) {
-				c_width = parseInt(this.css('width'));
+				c_width = parseInt(this.css('width'), 10);
 			}
 			if (this.css('height')) {
-				c_height = parseInt(this.css('height'));
+				c_height = parseInt(this.css('height'), 10);
 			}
 			
 			this.attr('width',c_width).attr('height',c_height);
 			
-			if (Object.keys(data["data"]).length > 0 && Object.keys(data["video"]).length > 0) {
+			if (Object.keys(data.data).length > 0 && Object.keys(data.video).length > 0) {
 				// Vertical Scaling
-				autoscale = true // BUG (autoscale set to false in parseOptions)
-				if (autoscale == true) {
-					c_height = Object.keys(data["data"]).length*15+20;
+				autoscale = true; // BUG (autoscale set to false in parseOptions)
+				if (autoscale === true) {
+					c_height = Object.keys(data.data).length*15+20;
 					this.css('height',c_height.toString() + "px");
-					this.attr('height',c_height)
+					this.attr('height',c_height);
 				}
 				
-				var scale_ratio = scaler(data["video"]);
+				var scale_ratio = scaler(data.video);
 				if (type == "line") {
 					vector(100,0,100,c_height,{});
 					line_display(data,options,scale_ratio);
 				} else if (type == "frequency") {
 					frequency_display(data,options,scale_ratio);
 				} else {
-					console.error('CoVisual Plot Type not recognized. See Documentation for Details')
+					console.error('CoVisual Plot Type not recognized. See Documentation for Details');
 				}
 			} else {
-				console.error('No Data. See Documentation for JSON formatting')
+				console.error('No Data. See Documentation for JSON formatting');
 			}
 						
 		} else if (this[0].tagName == "DIV") {
-				options["css"] = {};
-				if (!options["css"]["width"]) {
-					options["css"]["width"] = this.css('width'); + "\"";
+				options.css = {};
+				if (!options.css.width) {
+					options.css.width = this.css('width'); + "\"";
 				}
-				if (!options["css"]["height"]) {
-					options["css"]["height"] = this.css('height'); + "\"";
+				if (!options.css.height) {
+					options.css.height = this.css('height'); + "\"";
 				}
 				
 				// preserve border
-				if (!options["css"]["border"]) {
-					options["css"]["border"] = this[0].style.border;
+				if (!options.css.border) {
+					options.css.border = this[0].style.border;
 				}
 				
 				this.replaceWith("<canvas id=\"covisual_" + (document.getElementsByTagName('canvas').length + 1).toString() + "\"><!-- --></canvas>");
 				json_options_ = JSON.stringify(options);
 				json_data_ = JSON.stringify(data);
-				id = '#covisual_' + (document.getElementsByTagName('canvas').length).toString()
+				id = '#covisual_' + (document.getElementsByTagName('canvas').length).toString();
 				$(id).timeline(type,json_data_,json_options_);
 		} else {
 				console.error("CoVisual TimeLines require HTML5 Canvas Support. Target must be a div or canvas.");
@@ -98,23 +100,23 @@
 			var i=1;
 			$.each(data["data"], function (series_name,series_data) {
 				// ctx.fillStyle = colorlist[i-1]; // Uncomment for colors
-				label(series_name,i,label_options)
+				label(series_name,i,label_options);
 				$.each(series_data, function (item) {
 					interval = series_data[item]
-					time = interval["start_time"].split(":")
+					time = interval["start_time"].split(":");
 					if (time.length == 3) {
-						start_time = parseInt(time[0])*3600 + parseInt(time[1])*60 + parseInt(time[2])
-					} else if (time.length == 2) {
-						start_time = parseInt(time[0])*60 + parseInt(time[1])
-					} else 	if (time.length == 1) {
-						seconds = time[0]
+						start_time = parseInt(time[0],10)*3600 + parseInt(time[1],10)*60 + parseInt(time[2],10);
+					} else if (time.length === 2) {
+						start_time = parseInt(time[0],10)*60 + parseInt(time[1],10);
+					} else 	if (time.length === 1) {
+						seconds = time[0];
 					} else {
 						console.error("Covisuals.js: Invalid Time Format for Video Duration.");
 						throw "1";
 					}
-					time = interval["duration"].split(":")
+					time = interval.duration.split(":");
 					if (time.length == 3) {
-						duration = parseInt(time[0])*3600 + parseInt(time[1])*60 + parseInt(time[2])
+						duration = parseInt(time[0],10)*3600 + parseInt(time[1],10)*60 + parseInt(time[2],10);
 					} else if (time.length == 2) {
 						duration = parseInt(time[0])*60 + parseInt(time[1])
 					} else if (time.length == 1) {
