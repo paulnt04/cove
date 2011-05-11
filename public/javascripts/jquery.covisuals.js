@@ -104,8 +104,7 @@
 
 		function line_display(line_data_,line_options_,scale_data_) {
 			var i=1;
-			$.each(data["data"], function (series_name,series_data) {
-				// ctx.fillStyle = colorlist[i-1]; // Uncomment for colors
+			$.each(data.data, function (series_name,series_data) {
 				label(series_name,i,label_options);
 				$.each(series_data, function (item) {
 					interval = series_data[item]
@@ -115,7 +114,7 @@
 					} else if (time.length === 2) {
 						start_time = parseInt(time[0],10)*60 + parseInt(time[1],10);
 					} else 	if (time.length === 1) {
-						seconds = time[0];
+						start_time = time[0];
 					} else {
 						console.error("Covisuals.js: Invalid Time Format for Video Duration.");
 						throw "1";
@@ -126,7 +125,7 @@
 					} else if (time.length == 2) {
 						duration = parseInt(time[0],10)*60 + parseInt(time[1],10);
 					} else if (time.length == 1) {
-							seconds = time[0];
+						duration = time[0];
 					} else {
 						console.error("Covisuals.js: Invalid Time Format for Video Duration.");
 						throw "1";
@@ -139,8 +138,13 @@
 			});
 		}
 
-		function frequency_display(freq_data, freq_options,scale_data_) {
+		function frequency_display(freq_data,freq_options,scale_data_) {
+			var i=1;
+			$.each(data.data, function (series_name,series_data) {
+				label(series_name,i,label_options);
 
+				i++;
+			});
 		}
 
 		// Scaler
@@ -191,7 +195,7 @@
 		}
 
 		function point(x,y,series_number,point_options_) {
-			var radius = 2;
+			var radius = 1;
 			parseOptions(point_options_,false);
 			ctx.beginPath();
 			ctx.arc(x,y,radius,0,Math.PI*2,true); // arc(x,y,radius,startAngle,endAngle,clockwise)
