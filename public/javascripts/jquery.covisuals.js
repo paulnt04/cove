@@ -40,7 +40,6 @@
 			ctx = this[0].getContext("2d");
 			// Parses input options (see function below)
 			parseOptions(options, true);
-			// fillGenerator(Object.keys(data["data"]).length); // Uncomment to activate colored lines
 			// Height and width of target if set. Else, 500px X 100px is default. Can also be set in options.
 			if (this.css('width')) {
 				c_width = parseInt(this.css('width'), 10);
@@ -68,6 +67,8 @@
 				if (type === "line") {
 					vector(100, 0, 100, c_height, {});
 					text("t->",102,c_height-12,8,'black',{})
+					text(data.video.duration, c_width - 6 * data.video.duration.length + 2 * Math.floor(data.video.duration.length / 4), c_height - 12, 8, 'black', {})
+					vector(100, c_height - 12, c_width, c_height - 12, {});
 					line_display(data, options, scale_ratio);
 				} else if (type === "frequency") {
 					frequency_display(data, options, scale_ratio);
@@ -163,7 +164,12 @@
 		// Line Subfunction. line_options_ is a JSON object
 		function line(start_x,length,series_number,line_options_) {
 			ctx.lineWidth = 3;
-			ctx.strokeStyle = color_list[series_number - 1];
+			// Repeats Colors. If more than the color_list is rendered.
+			if (series_number < color_list.length) {
+				ctx.strokeStyle = color_list[series_number - 1];
+			} else {
+				ctx.strokeStyle = color_list[(series_number % color_list.length + color_list.length - 1) % color_list.length]
+			}
 			parseOptions(line_options_,false);
 			ctx.beginPath();
 			y = series_number * 15 + 4; 
@@ -175,6 +181,7 @@
 
 		function vector(start_x,start_y,end_x,end_y,line_options_) {
 			ctx.lineWidth = 1;
+			ctx.strokeStyle = 'black';
 			parseOptions(line_options_,false);
 			ctx.beginPath();
 			ctx.moveTo(start_x, start_y);
@@ -195,8 +202,11 @@
 		function label(labeltext, series_number, label_options_) {
 			ctx.textBaseline = 'top';
 			ctx.textAlign = 'left';
-			ctx.fillStyle = color_list[series_number - 1];
-			ctx.font = "12pt Arial";
+			if (series_number < color_list.length) {
+				ctx.fillStyle = color_list[series_number - 1];
+			} else {
+				ctx.fillStyle = color_list[(series_number % color_list.length + color_list.length - 1) % color_list.length]
+			}			ctx.font = "12pt Arial";
 			maxWidth = 100;
 			parseOptions(label_options_,false);
 			
@@ -262,7 +272,7 @@
 		function fillGenerator(number,schema) {
 			var colors = [], variation = 0;
 			i = 0;
-			var neededColors = number - color_list.length;
+			var neededColors = schema.length || number - color_list.length; // Will Repeat colors if more series than schema colors. Remove [schema.length ||] if random colors will be generated for extra series instead.
 			while (colors.length < neededColors) {
 				var color = schema[i] || '#'+(Math.random()*0xFFFFFF<<0).toString(16);
 				colors.push(color);
