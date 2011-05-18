@@ -52,7 +52,11 @@
 
 			if (Object.keys(data.data).length > 0 && Object.keys(data.video).length > 0) {
 				// Vertical Scaling
-				autoscale = true; // BUG (autoscale set to false in parseOptions)
+				// BUG (autoscale set to false in parseOptions)
+				if (type !== "frequency") {
+					autoscale = true; 
+				}
+				// END BUG
 				if (autoscale === true) {
 					c_height = Object.keys(data.data).length * 15 + 20;
 					this.css('height', c_height.toString() + "px");
@@ -63,7 +67,7 @@
 				var colorschema = options.colorschema || {};
 				fillGenerator(Object.keys(data.data).length,colorschema);
 
-				var scale_ratio = scaler(data.video);
+				var scale_ratio = scaler(data.video,type);
 				if (type === "line") {
 					vector(100, 0, 100, c_height, {});
 					text("t->",102,c_height-12,8,'black',{})
@@ -140,16 +144,88 @@
 
 		function frequency_display(freq_data,freq_options,scale_data_) {
 			var i=1;
+			var max = 0;
+			var fdata = {};
+			var duration = 0;
+			time = data.video.duration.split(":");
+			if (time.length == 3) {
+				duration = parseInt(time[0],10)*3600 + parseInt(time[1],10)*60 + parseInt(time[2],10);
+			} else if (time.length == 2) {
+				duration = parseInt(time[0],10)*60 + parseInt(time[1],10);
+			} else if (time.length == 1) {
+				duration = time[0];
+			} else {
+				console.error("Covisuals.js: Invalid Time Format for Video Duration.");
+				throw "1";
+			}
 			$.each(data.data, function (series_name,series_data) {
 				label(series_name,i,label_options);
-
+				fdata[i.toString()] = {};
+				sdata = fdata[i.toString()];
+				for (var second = 1; second <= duration; second++) {
+					sdata[second.toString()] = 0;
+				}
+				$.each(series_data, function (item) {
+					interval = series_data[item]
+					time = interval["start_time"].split(":");
+					if (time.length == 3) {
+						start_time = parseInt(time[0],10)*3600 + parseInt(time[1],10)*60 + parseInt(time[2],10);
+					} else if (time.length === 2) {
+						start_time = parseInt(time[0],10)*60 + parseInt(time[1],10);
+					} else 	if (time.length === 1) {
+						start_time = time[0];
+					} else {
+						console.error("Covisuals.js: Invalid Time Format for Video Duration.");
+						throw "1";
+					}
+					time = interval.duration.split(":");
+					if (time.length == 3) {
+						length = parseInt(time[0],10)*3600 + parseInt(time[1],10)*60 + parseInt(time[2],10);
+					} else if (time.length == 2) {
+						length = parseInt(time[0],10)*60 + parseInt(time[1],10);
+					} else if (time.length == 1) {
+						length = time[0];
+					} else {
+						console.error("Covisuals.js: Invalid Time Format for Video Duration.");
+						throw "1";
+					}
+					for (var instance = start_time; instance <= start_time + length; instance++ ) {
+						sdata[instance.toString()] += 1;
+						if (sdata[instance.toString()] > max) {
+							max = sdata[instance.toString()];
+						}
+					}
+				});
 				i++;
 			});
+			var v_scale = c_height * 0.9 / max;
+			var t_options = {};
+			for (var snumber in fdata) {
+				for (var graph = 1; graph <= duration; graph++) {
+					if (fdata[snumber][graph.toString()] > 0) {
+						point(Math.ceil(graph / scale_data_), c_height - fdata[snumber][graph.toString()] * v_scale, parseInt(snumber, 10), {});
+					}
+					if (graph > 1 && (fdata[snumber][graph.toString()] > 0 || fdata[snumber][(graph - 1).toString()] > 0)) {
+						if (snumber < color_list.length) {
+							t_options["fillStyle"] = color_list[snumber - 1];
+						} else {
+							t_options["fillStyle"] = color_list[(snumber % color_list.length + color_list.length - 1) % color_list.length]
+						}
+						triangle((graph - 1) / scale_data_, c_height - fdata[snumber][(graph - 1).toString()] * v_scale, graph / scale_data_, c_height - fdata[snumber][graph.toString()] * v_scale, t_options);
+					}
+				}
+			}
+			for (var tick = 1; tick <= max; tick++) {
+				text(tick.toString(), c_width - 8, c_height - tick * v_scale - 6, 8, 'black', {})
+			}
 		}
 
 		// Scaler
-		function scaler(video_data_) {
+		function scaler(video_data_,type_) {
 			data_width = parseInt(c_width,10) - 100;
+			if (type_ === "frequency") {
+				data_width += 100;
+			}
 			time = video_data_.duration.split(":");
 			if (time.length == 3) {
 				seconds = parseInt(time[0],10)*3600 + parseInt(time[1],10)*60 + parseInt(time[2],10);
@@ -186,7 +262,11 @@
 		function vector(start_x,start_y,end_x,end_y,line_options_) {
 			ctx.lineWidth = 1;
 			ctx.strokeStyle = 'black';
-			parseOptions(line_options_,false);
+			//parseOptions(line_options_,false); // BUG WITH PARSE OPTIONS FROM FREQUENCY PLOTTING VECTORS
+			if (line_options_["strokeStyle"] !== "undefined") {
+				ctx.strokeStyle = line_options_["strokeStyle"];
+			}
+			// END BUG QUICK FIX
 			ctx.beginPath();
 			ctx.moveTo(start_x, start_y);
 			ctx.lineTo(end_x, end_y);
@@ -194,9 +274,32 @@
 			ctx.closePath();
 		}
 
+		function triangle(start_x,start_y,end_x,end_y,line_options_) {
+			ctx.lineWidth = 1;
+			ctx.fillStyle = 'black';
+			//parseOptions(line_options_,false); // BUG WITH PARSE OPTIONS FROM FREQUENCY PLOTTING VECTORS
+			if (line_options_["fillStyle"] !== "undefined") {
+				ctx.fillStyle = line_options_["fillStyle"];
+			}
+			// END BUG QUICK FIX
+			ctx.beginPath();
+			ctx.moveTo(start_x, start_y);
+			ctx.lineTo(end_x, end_y);
+			ctx.lineTo(end_x,c_height)
+			ctx.lineTo(start_x,c_height)
+			ctx.lineTo(start_x,start_y)
+			ctx.fill();
+			ctx.closePath();
+		}
+
 		function point(x,y,series_number,point_options_) {
-			var radius = 1;
+			var radius = 3;
 			parseOptions(point_options_,false);
+			if (series_number < color_list.length) {
+				ctx.fillStyle = color_list[series_number - 1];
+			} else {
+				ctx.fillStyle = color_list[(series_number % color_list.length + color_list.length - 1) % color_list.length]
+			}
 			ctx.beginPath();
 			ctx.arc(x,y,radius,0,Math.PI*2,true); // arc(x,y,radius,startAngle,endAngle,clockwise)
 			ctx.closePath();
@@ -210,7 +313,8 @@
 				ctx.fillStyle = color_list[series_number - 1];
 			} else {
 				ctx.fillStyle = color_list[(series_number % color_list.length + color_list.length - 1) % color_list.length]
-			}			ctx.font = "12pt Arial";
+			}			
+			ctx.font = "12pt Arial";
 			maxWidth = 100;
 			parseOptions(label_options_,false);
 			

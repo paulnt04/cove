@@ -8,7 +8,7 @@
 </head>
 
 <body>
-	<canvas id="test" style="width:500px;height:300px;border:1px solid black;"><!-- --></canvas>
+	<canvas id="test_frequency" style="width:500px;height:300px;border:1px solid black;"><!-- --></canvas>
 	<br />
 	<div id="placeholder" style="width:500px;height:100px;border:1px solid black;">
 		<!-- -->
@@ -16,6 +16,7 @@
 	
 	<script>
 		//$(OBJECT).timeline()
+		$('#test_frequency').timeline('frequency',{"video":{"duration":"2:30"},"data":{"Riffing":[{"start_time":"00:00:20","duration":"00:00:05"},{"start_time":"00:00:22","duration":"00:00:04"},{"start_time":"00:00:25","duration":"00:00:8"},{"start_time":"00:00:021","duration":"00:00:02"},{"start_time":"00:01:40","duration":"00:00:10"},{"start_time":"00:01:41","duration":"00:00:05"},{"start_time":"00:01:45","duration":"00:00:02"},{"start_time":"00:01:44","duration":"00:00:02"}],"DeDup":[{"start_time":"00:00:25","duration":"00:00:05"},{"start_time":"00:00:27","duration":"00:00:04"},{"start_time":"00:00:030","duration":"00:00:02"},{"start_time":"00:02:00","duration":"00:00:10"},{"start_time":"00:02:01","duration":"00:00:05"},{"start_time":"00:02:05","duration":"00:00:02"},{"start_time":"00:02:04","duration":"00:00:03"},{"start_time":"00:02:02","duration":"00:00:10"}]}},{"autoscale":"true","colorschema":["#FF0000","#009999","#FF7400","#00CC00"]})
 		$('#placeholder').timeline('line',{"video":{"duration":"2:30"},"data":{"Riffing":[{"start_time":"00:00:01","duration":"00:01:00"},{"start_time":"00:01:40","duration":"00:00:10"}],"DeDup":[{"start_time":"00:00:11","duration":"00:00:10"},{"start_time":"00:00:51","duration":"00:00:20"},{"start_time":"00:01:40","duration":"00:00:10"},{"start_time":"00:02:11","duration":"00:00:10"}],"DaDa":[{"start_time":"00:01:24","duration":"00:00:05"},{"start_time":"00:01:40","duration":"00:00:10"}],"DeDa":[{"start_time":"00:00:59","duration":"00:00:25"},{"start_time":"00:02:20","duration":"00:00:05"}]}},{"autoscale":"true","colorschema":["#FF0000","#FF7400","#009999","#00CC00"]})
 	</script>
 </body>
