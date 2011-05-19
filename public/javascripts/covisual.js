@@ -309,11 +309,15 @@ function TimeLine () {
 		
 	}
 	
-	return {
-		initialize : initialize,
-		setup : setup,
-		setOffset : setOffset
+	function methods() {
+		return {
+			initialize : initialize,
+			setup : setup,
+			setOffset : setOffset
+		}
 	}
+	
+	return methods();
 	
 };
 /*
