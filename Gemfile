@@ -17,6 +17,11 @@ gem 'kaminari'
 gem 'newrelic_rpm'
 #necessary for sunspot solr in rails 3
 
+#File/Video Upload tool
+gem 'carrierwave'
+gem 'streamio-ffmpeg'
+#still need the USP segmenter
+
 #pagination tool
 #gem "will_paginate", "~> 3.0pre2"
 
@@ -42,8 +47,8 @@ gem 'hoptoad_notifier'
 	gem 'sqlite3-ruby', :require => 'sqlite3'
   # gem 'fakefs', :require => 'fakefs/safe'
 	gem 'rails3-generators'
-	gem "rspec"
-	gem "rspec-rails"
+	gem "rspec", ">= 2.6.0.rc2"
+	gem "rspec-rails", ">= 2.6.0.rc2"
 	gem 'email_spec'
 	gem "capybara"
 	gem "cucumber"

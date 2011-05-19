@@ -1,16 +1,24 @@
 Cove::Application.routes.draw do
   
   resources :videos
+  
   match 'videos/:video_id/tag', :to => 'videos#tag'
 
   resources :tags
 
   resources :jobs
+
+  resources :trainings
+
   match 'jobs/:id/work' => 'jobs#work'
+
+  resource :logging
 
   devise_for :users
 
   root :to => "home#index"
+
+  resources :videos
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
