@@ -12,6 +12,11 @@
 
 ActiveRecord::Schema.define(:version => 20110515193725) do
 
+  create_table "code_terms", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "job_tags", :force => true do |t|
     t.integer  "job_id"
     t.integer  "tag_id"
@@ -34,6 +39,11 @@ ActiveRecord::Schema.define(:version => 20110515193725) do
     t.datetime "updated_at"
     t.string   "description"
     t.integer  "requestor_id"
+  end
+
+  create_table "languages", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "rails_admin_histories", :force => true do |t|
@@ -119,6 +129,7 @@ ActiveRecord::Schema.define(:version => 20110515193725) do
     t.string   "filepath"
     t.float    "duration"
     t.datetime "starttime"
+    t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "orig_filepath"

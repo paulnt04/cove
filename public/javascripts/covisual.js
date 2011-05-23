@@ -27,10 +27,10 @@ function setGlobalVar(varname,value) {
 	}
 }
 
-function TimeLine () {
+function TimeLine (newtarget) {
 	
 	var ctx = new Object();
-	var target = new Object();
+	var target = $(newtarget) || new Object();
 	var c_width = '500px';
 	var c_height = '100px';
 	var c_scale = '1'; // 1 second per pixel
@@ -309,12 +309,33 @@ function TimeLine () {
 		
 	}
 	
+	function setData() {
+		
+	}
+	
+	function setOptions() {
+		
+	}
+	
+	function getRuntime() {
+		var runtime = {}
+		if (typeof(target) !== "undefined") {
+			runtime["target"] = target;
+		}
+		runtime["options"] = options;
+		runtime["data"] = data;
+		return runtime;
+	}
+	
 	function methods() {
 		return {
 			initialize : initialize,
+			init : initialize,
 			setup : setup,
-			setOffset : setOffset
-		}
+			setData : setData,
+			setOptions : setOptions,
+			setOffset : setOffset,
+			getRuntime : getRuntime		}
 	}
 	
 	return methods();
