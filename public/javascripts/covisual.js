@@ -44,6 +44,7 @@ function TimeLine (newtarget) {
 	var data = {};
 	var errOut = "false";
 	var intervalID;
+	var offset = 0;
 	
 	// Scaler
 	function scaler(video_data_,type_) {
@@ -221,6 +222,7 @@ function TimeLine (newtarget) {
 			if (Object.keys(data.data).length > 0 && Object.keys(data.video).length > 0) {
 				try {
 					clear();
+					target.attr('playtime',offset)
 					render();
 				} catch (renderErr) {
 					errOut = "true";
@@ -244,7 +246,8 @@ function TimeLine (newtarget) {
 	}
 	
 	function setOffset(offset_time) {
-		setGlobalVar("offset",offset_time);
+		offset = offset_time;
+		setGlobalVar("offset",offset);
 	}
 	
 	function initialize() {
@@ -324,6 +327,7 @@ function TimeLine (newtarget) {
 		}
 		runtime["options"] = options;
 		runtime["data"] = data;
+		runtime["offset"] = offset;
 		return runtime;
 	}
 	
